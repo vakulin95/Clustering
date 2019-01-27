@@ -9,7 +9,7 @@ all: built
 	@gcc $(CFLAGS) $(DEFINES) $<
 
 built: main.o
-	@gcc $^ $(BUILD_HOME)/$(CLUSTERING_PATH)/$(LIB_FILES) $(LFLAGS) gendata.out
+	gcc $^ $(BUILD_HOME)/$(CLUSTERING_PATH)/*.o $(LFLAGS) gendata.out
 
 clean:
 	@rm -rf *.o *.out *.log

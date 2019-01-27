@@ -7,6 +7,12 @@
 
 int main()
 {
+
+    printf("\n\n-----------Clustering-----------\n\n");
+    
+    CLUSTER_DATA();
+
+    printf("\n\n-----------Clustering-----------\n\n");
     
     return 0;
 }

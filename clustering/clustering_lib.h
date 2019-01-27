@@ -4,15 +4,13 @@
 #define __CLUSTERING_LIB_H__
 
 #include "distance.h"
+#include "inout.h"
+#include "algo.h"
 
-#if defined OPTION_TRACE_DEBUG
-	#define TRACE(args ...) printf(args)
+#if defined OPTION_QUADR_ERR_ALGO
+#define CLUSTER_DATA() quadratic_error_algorithm()
 #else
-	#define TRACE(args ...)
-#endif /* OPTION_DEBUG_TRACE */
-
-#if defined OPTION_DIST_EUCLIDEAN
-#define CALC_DISTANCE(x1, x2, dim)	euclidean_distance_func(x1, x2, dim)
-#endif
+#define CLUSTER_DATA()
+#endif	/* OPTION_QUADR_ERR_ALGO */
 
 #endif	/* __CLUSTERING_LIB_H__ */

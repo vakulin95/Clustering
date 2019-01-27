@@ -14,12 +14,12 @@ set xrange [0:1000]
 set yrange [0:1000]
 #set key outside bottom right box
 
-plot_file1 = "data/input.dat"
+plot_file1 = "data/output.dat"
 
 set output "data/out.png"
 	set title "Input"
 	set xlabel "X"
 	set ylabel "Y"
 	
-	plot plot_file1 u 1:2 with points ls 1
+	plot plot_file1 u 1:2:3 with points ls 1 palette
 unset out

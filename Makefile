@@ -12,14 +12,14 @@ rebuild: clean_all build links
 build: main.o
 	cd $(CLUSTERING_PATH) 	&& make
 	cd $(GENDATA_PATH)	&& make
-	gcc $^ $(CLUSTERING_PATH)/$(LIB_FILES) $(LFLAGS) main.out
+	gcc $^ $(CLUSTERING_PATH)/*.o $(LFLAGS) main.out
 
 links:
 	if [ $(DIMENSIONS) \< 4 ] ; then \
 	  ln -fs $(PLOT_PATH)/plot_$(DIMENSIONS)dim.gnu plot.gnu ; fi
 
 clean:
-	rm -rf *.o *.out
+	rm -rf *.o *.out *.log
 
 clean_all: clean
 	rm -rf plot.gnu

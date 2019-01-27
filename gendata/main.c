@@ -15,10 +15,6 @@
 #define DEF_MIN_VALUE		0
 #define DEF_MAX_VALUE		1000
 
-/* <! Number of clusters
-   > */
-#define DEF_NUM_OF_CLUSTERS	4
-
 /* <! Threshold of the range of elements
       from each other in one cluster
    > */
@@ -265,7 +261,7 @@ size_t check_centroid(size_t ind)
 	    continue;
 	}
 	
-	dist = CALC_DISTANCE(g_arr_centroids[ind], g_arr_centroids[i], DEF_DIMENSIONS);
+	dist = CALC_DISTANCE_DD(g_arr_centroids[ind], g_arr_centroids[i], DEF_DIMENSIONS);
 	TRACE("DEBUG: distance %f\n", dist);
 	
 	if (dist < 3 * DEF_ACCURACY)
