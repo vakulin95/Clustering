@@ -8,6 +8,10 @@ set mxtics
 set mytics
 set mztics
 
+set xrange [0:]
+set yrange [0:]
+set zrange [0:]
+
 set grid
 set style line 1 lc rgb 'red' pt 7 ps 1
 

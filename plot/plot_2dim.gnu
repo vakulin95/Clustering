@@ -10,8 +10,8 @@ set style line 1 lc rgb 'red' pt 7 ps 1
 #set style data points pointtype 7
 #set style data linespoints
 #set style line 1 lc rgb '#dd181f' lt 2 lw 1 pt 0 ps 0   # --- red
-set xrange [0:1000]
-set yrange [0:1000]
+set xrange [0:]
+set yrange [0:]
 #set key outside bottom right box
 
 plot_file1 = "data/output.dat"

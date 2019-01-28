@@ -6,6 +6,8 @@
 #include <math.h>
 
 #include "../clustering/clustering_lib.h"
+#include "../clustering/config.h"
+#include "../clustering/distance.h"
 
 /* main defines */
 
@@ -13,12 +15,12 @@
       of values in every dimension
    > */
 #define DEF_MIN_VALUE		0
-#define DEF_MAX_VALUE		1000
+#define DEF_MAX_VALUE		100000
 
 /* <! Threshold of the range of elements
       from each other in one cluster
    > */
-#define DEF_ACCURACY	       80
+#define DEF_ACCURACY	       	1000
 
 /* <! If not null, at least 2 clusters will intersect 
    > */
@@ -35,8 +37,8 @@
 #define OPTION_SHUFFLE
 
 /* globals */
-int g_arr_general[DEF_NUM_OF_ELEMENTS][DEF_DIMENSIONS];
-int g_arr_centroids[DEF_NUM_OF_CLUSTERS][DEF_DIMENSIONS];
+int g_arr_general_out[DEF_NUM_OF_ELEMENTS][DEF_DIMENSIONS];
+float g_arr_centroids[DEF_NUM_OF_CLUSTERS][DEF_DIMENSIONS];
 
 /* <! Check that centroid ind is not clother 
       to other centroids then defined accuracy
@@ -58,7 +60,7 @@ size_t check_centroid(size_t ind);
    > */
 int gen_point_near_centroid(size_t ind, size_t cluster_num);
 
-/* <! Swap points into g_arr_general
+/* <! Swap points into g_arr_general_out
    @ variables:
      - ind1 : index of point 1
      - ind2 : index of point 2
@@ -142,7 +144,7 @@ int main()
 		    (DEF_MIN_VALUE + DEF_ACCURACY);
 	    }
 	    
-	    if (++k > 1000)
+	    if (++k > 10)
 	    {
 		TRACE("DEBUG: CRITICAL: accuracy too large!\n");
 		exit(2);
@@ -164,7 +166,7 @@ int main()
 	}
     }
     
-    /* main loop for g_arr_general */
+    /* main loop for g_arr_general_out */
     for (i = 0, k = 0; i < DEF_NUM_OF_CLUSTERS; i++)
     {
 	for (j = 0; j < arr_el_num_per_cluster[i]; j++, k++)
@@ -178,7 +180,7 @@ int main()
     {	
 	for (j = 0; j < DEF_DIMENSIONS; j++)
 	{
-	    TRACE("g_arr_centroids[%lu][%lu]:\t%d\n", i, j, g_arr_centroids[i][j]);
+	    TRACE("g_arr_centroids[%lu][%lu]:\t%.3f\n", i, j, g_arr_centroids[i][j]);
 	}
 	TRACE("\n");
     }
@@ -189,13 +191,13 @@ int main()
     {	
 	for (j = 0; j < DEF_DIMENSIONS; j++)
 	{
-	    if (g_arr_general[i][j] > DEF_MAX_VALUE || g_arr_general[i][j] < DEF_MIN_VALUE)
+	    if (g_arr_general_out[i][j] > DEF_MAX_VALUE || g_arr_general_out[i][j] < DEF_MIN_VALUE)
 	    {
-		TRACE("DEBUG: CRITICAL: g_arr_general[%lu][%lu]:\t%d\nMAX: %d MIN: %d\n\n",
-		      i, j, g_arr_general[i][j], DEF_MAX_VALUE, DEF_MIN_VALUE);
+		TRACE("DEBUG: CRITICAL: g_arr_general_out[%lu][%lu]:\t%d\nMAX: %d MIN: %d\n\n",
+		      i, j, g_arr_general_out[i][j], DEF_MAX_VALUE, DEF_MIN_VALUE);
 		exit(1);
 	    }
-	    TRACE("g_arr_general[%lu][%lu]:\t%d\n", i, j, g_arr_general[i][j]);
+	    TRACE("g_arr_general_out[%lu][%lu]:\t%d\n", i, j, g_arr_general_out[i][j]);
 	}
 	TRACE("\n");
     }
@@ -216,13 +218,13 @@ int main()
     {	
 	for (j = 0; j < DEF_DIMENSIONS; j++)
 	{
-	    if (g_arr_general[i][j] > DEF_MAX_VALUE || g_arr_general[i][j] < DEF_MIN_VALUE)
+	    if (g_arr_general_out[i][j] > DEF_MAX_VALUE || g_arr_general_out[i][j] < DEF_MIN_VALUE)
 	    {
-		TRACE("DEBUG: CRITICAL: g_arr_general[%lu][%lu]:\t%d\nMAX: %d MIN: %d\n\n",
-		      i, j, g_arr_general[i][j], DEF_MAX_VALUE, DEF_MIN_VALUE);
+		TRACE("DEBUG: CRITICAL: g_arr_general_out[%lu][%lu]:\t%d\nMAX: %d MIN: %d\n\n",
+		      i, j, g_arr_general_out[i][j], DEF_MAX_VALUE, DEF_MIN_VALUE);
 		exit(1);
 	    }
-	    TRACE("g_arr_general[%lu][%lu]:\t%d\n", i, j, g_arr_general[i][j]);
+	    TRACE("g_arr_general_out[%lu][%lu]:\t%d\n", i, j, g_arr_general_out[i][j]);
 	}
 	TRACE("\n");
     }
@@ -236,7 +238,7 @@ int main()
     {	
 	for (j = 0; j < DEF_DIMENSIONS; j++)
 	{
-	    fprintf(ptr_f, "%d ", g_arr_general[i][j]);
+	    fprintf(ptr_f, "%d ", g_arr_general_out[i][j]);
 	}
 	fprintf(ptr_f, "\n");
     }
@@ -261,7 +263,7 @@ size_t check_centroid(size_t ind)
 	    continue;
 	}
 	
-	dist = CALC_DISTANCE_DD(g_arr_centroids[ind], g_arr_centroids[i], DEF_DIMENSIONS);
+	dist = CALC_DISTANCE_FF(g_arr_centroids[ind], g_arr_centroids[i], DEF_DIMENSIONS);
 	TRACE("DEBUG: distance %f\n", dist);
 	
 	if (dist < 3 * DEF_ACCURACY)
@@ -289,7 +291,7 @@ int gen_point_near_centroid(size_t ind, size_t cluster_num)
 	min_value = g_arr_centroids[cluster_num][i] - DEF_ACCURACY;
 	max_value = g_arr_centroids[cluster_num][i] + DEF_ACCURACY;
 	
-	g_arr_general[ind][i] = rand() % (max_value - min_value) + min_value;
+	g_arr_general_out[ind][i] = rand() % (max_value - min_value) + min_value;
     }
     
     return 0;
@@ -302,9 +304,9 @@ int swap_points(size_t ind1, size_t ind2)
 
     for (i = 0; i < DEF_DIMENSIONS; i++)
     {
-	temp = g_arr_general[ind1][i];
-	g_arr_general[ind1][i] = g_arr_general[ind2][i];
-	g_arr_general[ind2][i] = temp;
+	temp = g_arr_general_out[ind1][i];
+	g_arr_general_out[ind1][i] = g_arr_general_out[ind2][i];
+	g_arr_general_out[ind2][i] = temp;
     }
 
     return 0;

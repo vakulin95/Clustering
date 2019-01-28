@@ -6,9 +6,10 @@ include $(BUILD_HOME)/Options
 all: built
 
 %.o: %.c
-	@gcc $(CFLAGS) $(DEFINES) $<
+	$(GCC) $(CFLAGS) $(DEFINES) $<
 
 built: $(LIB_FILES)
+	ar -cvq libclustering.a *.o	
 
 clean:
-	@rm -rf *.o *.out
+	@rm -rf *.o *.out *.a

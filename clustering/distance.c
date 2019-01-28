@@ -1,6 +1,7 @@
 /* distance.c */
 
 #include "distance.h"
+#include "config.h"
 
 float euclidean_distance_func_dd(int *x1, int *x2, int dim)
 {
@@ -46,14 +47,13 @@ float euclidean_distance_func_ff(float *x1, float *x2, int dim)
     float ret = 0;
     
     TRACE(">>euclidean_distance_func\n");
-
+   
     for (i = 0; i < dim; i++)
     {
 	ret += (x1[i] - x2[i]) * (x1[i] - x2[i]);
     }
-
-    ret = sqrt(ret);
     
+    ret = sqrt(ret);
     TRACE("<<euclidean_distance_func, ret = %f\n", ret);
     
     return ret;

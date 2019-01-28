@@ -3,8 +3,6 @@
 #ifndef __DISTANCE_H__
 #define __DISTANCE_H__
 
-#include "config.h"
-
 #include <stdio.h>
 #include <math.h>
 
@@ -17,7 +15,6 @@
 float euclidean_distance_func_dd(int *x1, int *x2, int dim);
 float euclidean_distance_func_df(int *x1, float *x2, int dim);
 float euclidean_distance_func_ff(float *x1, float *x2, int dim);
-
 float calculate_average_func(size_t cluster, int dimension);
 
 #endif	/* __DISTANCE_H__ */

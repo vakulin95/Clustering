@@ -7,12 +7,12 @@ all: build
 rebuild: clean_all build links
 
 %.o: %.c
-	gcc $(CFLAGS) $(DEFINES) $<
+	$(GCC) $(CFLAGS) $(DEFINES) $<
 
 build: main.o
 	cd $(CLUSTERING_PATH) 	&& make
 	cd $(GENDATA_PATH)	&& make
-	gcc $^ $(CLUSTERING_PATH)/*.o $(LFLAGS) main.out
+	$(GCC) $^ $(CLUSTERING_PATH)/*.o $(LFLAGS) main.out
 
 links:
 	if [ $(DIMENSIONS) \< 4 ] ; then \
@@ -25,4 +25,4 @@ clean_all: clean
 	rm -rf plot.gnu
 	cd $(CLUSTERING_PATH) 	&& make clean
 	cd $(GENDATA_PATH)	&& make clean
-	cd $(DATA_PATH)	&& rm -rf *.png
+	cd $(DATA_PATH)	&& rm -rf *.png output.dat outime.dat

@@ -9,9 +9,14 @@ int main()
 {
 
     printf("\n\n-----------Clustering-----------\n\n");
+
+    input_data();
     
     CLUSTER_DATA();
 
+    printf("writing out file...\n");
+    output_result();
+  
     printf("\n\n-----------Clustering-----------\n\n");
     
     return 0;

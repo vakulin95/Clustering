@@ -6,10 +6,10 @@ include $(BUILD_HOME)/Options
 all: built
 
 %.o: %.c
-	@gcc $(CFLAGS) $(DEFINES) $<
+	$(GCC) $(CFLAGS) $(DEFINES) $<
 
 built: main.o
-	gcc $^ $(BUILD_HOME)/$(CLUSTERING_PATH)/*.o $(LFLAGS) gendata.out
+	$(GCC) $(LFLAGS) gendata.out $(BUILD_HOME)/$(CLUSTERING_PATH)/*.o $^
 
 clean:
 	@rm -rf *.o *.out *.log

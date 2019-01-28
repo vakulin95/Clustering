@@ -8,7 +8,7 @@
 #include "algo.h"
 
 #if defined OPTION_QUADR_ERR_ALGO
-#define CLUSTER_DATA() quadratic_error_algorithm()
+#define CLUSTER_DATA() parallel_quadratic_error_algorithm()
 #else
 #define CLUSTER_DATA()
 #endif	/* OPTION_QUADR_ERR_ALGO */

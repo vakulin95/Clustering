@@ -9,6 +9,17 @@
 	#define TRACE(args ...)
 #endif /* OPTION_DEBUG_TRACE */
 
+/* <! If defined output file will be small to decrease time
+   > */
+#define OPTION_SHORT_OUTPUT
+
+/* <! Number of elements in output
+      [Optional for OPTION_SHORT_OUTPUT]
+   > */
+#if defined OPTION_SHORT_OUTPUT
+#define DEF_OUT_SIZE		1000
+#endif	/* OPTION_SHORT_OUTPUT */
+#define DEF_LOOP_OPTION 4
 /* <! Number of clusters
       [Optional for Quadratic error algorithm]
    > */
@@ -26,11 +37,7 @@
    > */
 #define DEF_STOP_DELTA		1.0
 
-char g_arr_cluster_num[DEF_NUM_OF_ELEMENTS];
-int g_arr_general[DEF_NUM_OF_ELEMENTS][DEF_DIMENSIONS];
-
-#if defined OPTION_QUADR_ERR_ALGO
-int g_arr_elnum_in_cluster[DEF_NUM_OF_CLUSTERS];
-#endif	/* OPTION_QUADR_ERR_ALGO */
+extern char g_arr_cluster_num[DEF_NUM_OF_ELEMENTS];
+extern int g_arr_general[DEF_NUM_OF_ELEMENTS][DEF_DIMENSIONS];
 
 #endif	/* __CONFIG_H__ */
