@@ -15,7 +15,7 @@
       of values in every dimension
    > */
 #define DEF_MIN_VALUE		0
-#define DEF_MAX_VALUE		100000
+#define DEF_MAX_VALUE		10000
 
 /* <! Threshold of the range of elements
       from each other in one cluster
@@ -266,7 +266,7 @@ size_t check_centroid(size_t ind)
 	dist = CALC_DISTANCE_FF(g_arr_centroids[ind], g_arr_centroids[i], DEF_DIMENSIONS);
 	TRACE("DEBUG: distance %f\n", dist);
 	
-	if (dist < 3 * DEF_ACCURACY)
+	if (dist < 2 * DEF_ACCURACY)
 	{
 	    ret = i;
 	    break;
